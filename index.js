@@ -7,7 +7,6 @@ const { serialize } = require('./lib/msg');
 const { getTime, getDate } = require('./lib/functions');
 
 async function startBot() {
-    // Session ID auto setup (String/Base64 අගයක් තියෙනවා නම්)
     if (config.sessionId && !fs.existsSync('./auth_info/creds.json')) {
         if (!fs.existsSync('./auth_info')) {
             fs.mkdirSync('./auth_info');
@@ -56,12 +55,12 @@ async function startBot() {
         const rawMsg = m.messages[0];
         if (!rawMsg.message || rawMsg.key.fromMe) return;
 
-        // lib/msg.js භාවිතයෙන් message එක serialize කරගැනීම
         const msg = serialize(sock, rawMsg);
 
         if (msg.isCmd && commands[msg.command]) {
             try {
-                await commands[msg.command].execute(sock, msg.from, rawMsg);
+                // Command එක execute කිරීම
+                await commands[msg.command].execute(sock, msg.from, rawMsg, commands);
             } catch (error) {
                 console.error('Command Error:', error);
                 await sock.sendMessage(msg.from, { text: '⚠️ Command එක ක්‍රියාත්මක කිරීමේදී දෝෂයක් සිදු විය.' });
