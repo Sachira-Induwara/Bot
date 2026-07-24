@@ -1,0 +1,12 @@
+{
+  "name": "SACHIYA MINI BOT",
+  "description": "A WhatsApp Bot built with Baileys library.",
+  "repository": "",
+  "logo": "https://i.imgur.com/v8p0q4c.png",
+  "keywords": ["whatsapp-bot", "baileys", "sachiya-mini-bot"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
